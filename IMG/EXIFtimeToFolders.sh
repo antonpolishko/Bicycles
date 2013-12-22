@@ -139,19 +139,19 @@ fi;
 # Could probably be optimized into a function instead, but I don't think there's an
 # advantage performance-wise. Suggestions are welcome at the URL at the top.
 for x in "${FILETYPES[@]}"; do
- # Check for the presence of imagemagick and the identify command.
- # Assuming its valid and working if found.
- I=`which identify`
- if [ "$I" == "" ]; then
- echo "The 'identify' command is missing or not available."
- echo "Is imagemagick installed?"
- exit 1
- fi;
- echo "Scanning for $x..."
- # FIXME: Eliminate problems with unusual characters in filenames.
- # Currently the exec call will fail and they will be skipped.
- find . -iname "$x" -print0 -exec sh -c "$0 doAction '{}'" ;
- echo "... end of $x"
+# Check for the presence of imagemagick and the identify command.
+# Assuming its valid and working if found.
+	I=`which identify`
+	if [ "$I" == "" ]; then
+		echo "The 'identify' command is missing or not available."
+		echo "Is imagemagick installed?"
+		exit 1
+	fi;
+	echo "Scanning for $x..."
+# FIXME: Eliminate problems with unusual characters in filenames.
+# Currently the exec call will fail and they will be skipped.
+	find . -iname "$x" -print0 -exec sh -c "$0 doAction '{}'" ;
+	echo "... end of $x"
 done;
 # clean up empty directories. Find can do this easily.
 # Remove Thumbs.db first because of thumbnail caching
